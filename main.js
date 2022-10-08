@@ -9,12 +9,32 @@ characters = [
   www 
   rrr 
   www 
-   b  
- b b  
- bbb  
+   l  
+ l l  
+ lll  
 
 `,
 ];
+const G = {
+    WIDTH: 150,
+    HEIGHT: 100
+};
+options = {
+      viewSize: {x: G.WIDTH, y: G.HEIGHT},
+    isCapturing: true,
+    isCapturingGameCanvasOnly: true,
+    captureCanvasScale: 2
+};
+/**
+ * @typedef {{
+ * pos: Vector,
+ * }} Player
+ */
+
+/**
+ * @type { Player }
+ */
+let player;
 
 options = {
   //isPlayingBgm: true,
@@ -32,6 +52,9 @@ function update() {
     pinMain = [vec(50, 5)];
     nextPinDist = 5;
     cord = { angle: 1.57, length: cordLength, pin: pinMain[0] };
+    player = {
+      pos: vec(49, 9)
+    };
   }
   //char["a", player.pos]
   // player = {
@@ -46,15 +69,19 @@ function update() {
   rect(0, 11, 100, 100);
   let scr = 0.2 * difficulty;
   if (input.isPressed) {
-    cord.length += 2 + difficulty; // how fast it goes out
+    cord.length += 1; // how fast it goes out
+    player.pos.y += 1;
     play("lazer");
-    if(cord.length > 100)
+    if(cord.length > 89)
     {
-      cord.length = 100;
+      cord.length = 89;
       addScore(1);
     }
   } else {
-    cord.length += (cordLength - cord.length) * 0.2; //how fast it retracts
+    if(cord.length > 1){
+      cord.length -=1;
+      player.pos.y -= 1;
+    }
   }
   color("black");
   //cord.angle += 0.05;
@@ -78,5 +105,9 @@ function update() {
     
     //color("blue");
     //rect(0, 11, 100, 100);
+    player.pos.clamp(0, G.WIDTH, 2, G.HEIGHT-2);
+
+    color ("black");
+    char("a", player.pos);
 }
 addEventListener("load", onLoad);
