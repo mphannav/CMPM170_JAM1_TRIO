@@ -1,26 +1,25 @@
-title = "GROUND TOUCHER";
+title = "FISH";
 
 description = `
-  [Hold] Stretch
-Touch the ground
-     and dodge!
+  [Hold] EXTEND
 `;
 
 characters = [ 
   `
- r rr
-rrrrrr
- grr
- grr
-rrrrrr
-r rr
+  www 
+  rrr 
+  www 
+   b  
+ b b  
+ bbb  
+
 `,
 ];
 
 options = {
-  isPlayingBgm: true,
+  //isPlayingBgm: true,
   isReplayEnabled: true,
-  seed: 4,
+  seed: 8,
 };
 let cord;
 let pins;
@@ -34,13 +33,24 @@ function update() {
     nextPinDist = 5;
     cord = { angle: 1.57, length: cordLength, pin: pinMain[0] };
   }
+  //char["a", player.pos]
+  // player = {
+  //   pos: vec(G.WIDTH * 0.95, G.HEIGHT * 0.5)
+  // };  
+  
+  color("light_blue");
+  rect(0, 10, 45, 2);
+  color("light_blue");
+  rect(54, 10, 50, 2);
+  color("blue");
+  rect(0, 11, 100, 100);
   let scr = 0.2 * difficulty;
   if (input.isPressed) {
     cord.length += 2 + difficulty; // how fast it goes out
     play("lazer");
-    if(cord.length > 90)
+    if(cord.length > 100)
     {
-      cord.length = 90;
+      cord.length = 100;
       addScore(1);
     }
   } else {
@@ -62,11 +72,11 @@ function update() {
     });
     nextPinDist -= scr;
     while (nextPinDist < 0) {
-      pins.push(vec(-2 - nextPinDist, rnd(10, 90)));
+      pins.push(vec(-2 - nextPinDist, rnd(15, 95)));
       nextPinDist += rnd(5, 50);
     }
     
-    color("light_blue");
-    rect(0, 90, 100, 100);
+    //color("blue");
+    //rect(0, 11, 100, 100);
 }
 addEventListener("load", onLoad);
