@@ -72,9 +72,9 @@ function update() {
     cord.length += 1; // how fast it goes out
     player.pos.y += 1;
     play("lazer");
-    if(cord.length > 89)
+    if(cord.length > 88)
     {
-      cord.length = 89;
+      cord.length = 88;
       addScore(1);
     }
   } else {
@@ -105,7 +105,7 @@ function update() {
     
     //color("blue");
     //rect(0, 11, 100, 100);
-    player.pos.clamp(0, G.WIDTH, 2, G.HEIGHT-2);
+    player.pos.clamp(0, G.WIDTH, 2, G.HEIGHT-3);
 
     color ("black");
     char("a", player.pos);
