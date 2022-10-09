@@ -86,7 +86,7 @@ function update() {
   rect(54, 10, 50, 2);
   color("blue");
   rect(0, 11, 100, 100);
-  let scr = 0.2 * difficulty;
+  let scr = 0.3 * difficulty;
   if (input.isPressed) {
     cord.length += 1; // how fast it goes out
     player.pos.y += 1;
@@ -110,22 +110,26 @@ function update() {
       p.x  += scr;
       //color("yellow");
       char("b",p, 0);
-      // if (char("b",p, 0).isColliding.char.a) {
-      //   play("explosion");
-      //   addScore(1);
-      // }
+      if (p.y >= player.pos.y - 4 && p.y <= player.pos.y + 4) {
+        if(p.x >= player.pos.x - 4 && p.x <= player.pos.x + 4){
+          play("powerUp");
+          addScore(1);
+          //end();
+          return p.x;
+        }
+      }
       if (char("b",p, 0).isColliding.rect.black) {
         play("explosion");
         end();
       }
-      return p.x > 102;
+      return p.x > 102 ;
     });
     nextPinDist -= scr;
     while (nextPinDist < 0) {
       pins.push(vec(-2 - nextPinDist, rnd(15, 95)));
       nextPinDist += rnd(5, 50);
     }
-    
+
     //color("blue");
     //rect(0, 11, 100, 100);
     player.pos.clamp(0, G.WIDTH, 2, G.HEIGHT-3);
