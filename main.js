@@ -9,10 +9,15 @@ characters = [
   www 
   rrr 
   www 
-   l  
- l l  
- lll  
+   y 
+ y y
+ yyy  
 
+`,
+`
+ r rr
+  rrlr 
+ r rr
 `,
 ];
 const G = {
@@ -34,7 +39,17 @@ options = {
 /**
  * @type { Player }
  */
+/**
+ * @typedef {{
+ * pos: Vector,
+ * }} Fish
+ */
+
+/**
+ * @type { Fish }
+ */
 let player;
+let fish;
 
 options = {
   //isPlayingBgm: true,
@@ -54,6 +69,10 @@ function update() {
     cord = { angle: 1.57, length: cordLength, pin: pinMain[0] };
     player = {
       pos: vec(49, 9)
+      
+    };
+    fish = {
+      pos: vec(-10, -10) //GOLDEN FISH NO REMOVE
     };
   }
   //char["a", player.pos]
@@ -75,7 +94,7 @@ function update() {
     if(cord.length > 88)
     {
       cord.length = 88;
-      addScore(1);
+      //addScore(1);
     }
   } else {
     if(cord.length > 1){
@@ -89,9 +108,13 @@ function update() {
   remove(pins, (p) => {
       //p.y  += scr;
       p.x  += scr;
-      color("red");
-      box(p,2);
-      if (box(p, 2).isColliding.rect.black) {
+      //color("yellow");
+      char("b",p, 0);
+      // if (char("b",p, 0).isColliding.char.a) {
+      //   play("explosion");
+      //   addScore(1);
+      // }
+      if (char("b",p, 0).isColliding.rect.black) {
         play("explosion");
         end();
       }
@@ -109,5 +132,6 @@ function update() {
 
     color ("black");
     char("a", player.pos);
+    char("b", fish.pos);
 }
 addEventListener("load", onLoad);
